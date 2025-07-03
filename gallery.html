@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Memories</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <style>
+    body {
+      margin: 0;
+      background: #fff0f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-family: 'Comic Sans MS', cursive;
+    }
+
+    #slideshow {
+      width: 90vw;
+      height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #slideshow img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      position: absolute;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    #slideshow img.active {
+      opacity: 1;
+    }
+
+    audio {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+    }
+  </style>
+
+  <script>
+    const pass = prompt("Enter the secret password:");
+    if (pass !== "yourSecret123") {
+      document.body.innerHTML = "<h2>Access Denied</h2>";
+    }
+  </script>
+</head>
+<body>
+
+  <div id="slideshow"></div>
+
+  <audio autoplay loop controls>
+    <source src="assets/music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const totalImages = 45; // Total number of images
+    const slideshow = document.getElementById('slideshow');
+    const imageElements = [];
+
+    for (let i = 1; i <= totalImages; i++) {
+      const img = document.createElement('img');
+      img.src = `assets/photo${i}.jpg`;
+      if (i === 1) img.classList.add('active');
+      slideshow.appendChild(img);
+      imageElements.push(img);
+    }
+
+    let current = 0;
+    setInterval(() => {
+      imageElements[current].classList.remove('active');
+      current = (current + 1) % totalImages;
+      imageElements[current].classList.add('active');
+    }, 2500); // Change every 2.5 seconds
+  </script>
+
+</body>
+</html>
