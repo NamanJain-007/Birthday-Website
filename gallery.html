@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -10,6 +11,9 @@
       height: 100%;
       background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
       overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      text-align: center;
     }
     canvas {
       position: fixed;
@@ -23,15 +27,28 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%) scale(0.75);
       z-index: 1;
     }
     #gallery img {
       display: none;
-      max-width: none;
-      max-height: none;
       box-shadow: 0 0 15px #fff;
       border-radius: 10px;
+    }
+    .message {
+      display: none;
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      font-size: 1.2em;
+      color: #ffd1dc;
+      text-shadow: 0 0 8px #fff;
+      z-index: 2;
+    }
+    .highlight {
+      font-size: 1.4em;
+      color: #ff99cc;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -39,6 +56,16 @@
   <canvas id="stars"></canvas>
 
   <div id="gallery"></div>
+  <div class="message" id="finalMessage">
+    <div class="highlight">Naman 💘 Shivakshi</div>
+    <div>ENFP 💘 INTJ</div>
+    <div style="margin-top: 5px; font-size: 0.9em; color: #ffffffaa;">
+      Meri Shivu Chaan, meri pagli I love you to the moon and beyond!<br>
+      <strong>DREAMERS</strong> is the name that always reminds me I have someone who loves,<br>
+      and She is my everything – My Bestie, My Partner, My Universe.
+    </div>
+  </div>
+
   <audio id="bgMusic" src="assets/music.mp3" autoplay></audio>
 
   <script>
@@ -92,6 +119,7 @@
       current++;
       if (current >= images.length) {
         clearInterval(slideshow);
+        document.getElementById('finalMessage').style.display = 'block';
         return;
       }
       showImage(current);
