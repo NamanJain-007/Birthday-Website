@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,34 +32,29 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      padding: 0 10px;
-      box-sizing: border-box;
     }
-    .title {
-      font-size: 3em;
-      color: #ffccff;
-      text-shadow: 0 0 20px #ff99cc;
-      animation: fadeIn 2s ease-in-out forwards;
-      margin: 0;
+    .fade-text span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: fadeIn 1s forwards;
     }
-    .btn {
-      margin-top: 30px;
-      padding: 15px 30px;
-      font-size: 1.2em;
-      color: white;
-      background: #ff69b4;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      box-shadow: 0 0 20px pink;
-      transition: transform 0.2s;
-    }
-    .btn:hover {
-      transform: scale(1.05);
-    }
+    .fade-text span:nth-child(1) { animation-delay: 0.3s; }
+    .fade-text span:nth-child(2) { animation-delay: 1.0s; }
+    .fade-text span:nth-child(3) { animation-delay: 1.7s; }
+
     @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(-30px); }
-      100% { opacity: 1; transform: translateY(0); }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .cake-img {
+      width: 180px;
+      margin-top: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px #ff69b4;
+      cursor: pointer;
     }
     .constellation-label {
       position: absolute;
@@ -78,6 +74,10 @@
       font-size: 1.2em;
       z-index: 2;
       text-shadow: 0 0 10px #fff;
+      text-align: center;
+    }
+    .personality-tag strong {
+      color: #ffd1dc;
     }
   </style>
 </head>
@@ -90,14 +90,26 @@
   <div class="constellation-label" style="top: 60%; left: 15%;">Scorpio</div>
 
   <div class="content">
-    <h1 class="title">Happy Birthday My Love ❤️</h1>
-    <button class="btn" onclick="location.href='gallery.html'">Click to Begin</button>
+    <h1 class="fade-text">
+      <span>Happy</span>
+      <span>Birthday</span>
+      <span>My Love ❤️</span>
+    </h1>
+    <img src="assets/cake.jpg" alt="Birthday Cake" class="cake-img" onclick="location.href='gallery.html'">
   </div>
 
-  <div class="personality-tag">ENFP 💘 INFP</div>
+  <div class="personality-tag">
+    <div><strong>Naman 💘 Shivakshi</strong></div>
+    <div>ENFP 💘 INTJ</div>
+    <div style="margin-top: 5px; font-size: 0.9em; color: #ffffffaa;">
+      Meri Shivu Chaan, meri pagli I love you to the moon and beyond!<br>
+      <strong>DREAMERS</strong> is the name that always reminds me I have someone who loves,<br>
+      and She is my everything – My Bestie, My Partner, My Universe.
+    </div>
+  </div>
 
   <script>
-    // Star animation
+    // Star background
     const canvas = document.getElementById("stars");
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
