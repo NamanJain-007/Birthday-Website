@@ -1,3 +1,4 @@
+<!-- gallery.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,7 +80,7 @@
 
   <div id="slideshow"></div>
 
-  <audio id="bg-music" autoplay loop>
+  <audio id="bg-music">
     <source src="assets/music.mp3" type="audio/mpeg">
   </audio>
 
@@ -123,6 +124,7 @@
 
     const slideshow = document.getElementById("slideshow");
     const message = document.getElementById("message");
+    const audio = document.getElementById("bg-music");
 
     images.forEach((src, index) => {
       const img = document.createElement("img");
@@ -137,18 +139,18 @@
     const interval = setInterval(() => {
       slides[current].classList.remove("active");
       current++;
+      if (current === 1) {
+        audio.play();
+      }
       if (current < slides.length) {
         slides[current].classList.add("active");
       } else {
         clearInterval(interval);
+        audio.pause();
         slideshow.style.display = "none";
         message.style.display = "block";
       }
     }, 2500);
-
-    // Prevent controls showing for autoplay audio
-    const audio = document.getElementById("bg-music");
-    audio.setAttribute("controls", false);
   </script>
 </body>
 </html>
