@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy Birthday</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Shivakshi</title>
   <style>
-    body {
+    html, body {
       margin: 0;
-      background: black;
+      padding: 0;
+      height: 100%;
       overflow: hidden;
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
       font-family: 'Segoe UI', sans-serif;
-      color: #fff;
+      color: white;
       text-align: center;
     }
     canvas {
@@ -22,149 +23,81 @@
       height: 100vh;
       z-index: 0;
     }
-    #moon {
-      position: fixed;
-      top: 30px;
-      right: 50px;
-      width: 100px;
-      height: 100px;
-      background: radial-gradient(circle at center, #fdfcfb 20%, #c9c9c9 80%);
-      border-radius: 50%;
-      box-shadow: 0 0 30px #fff;
-      z-index: 1;
-    }
-    #password-section {
-      position: absolute;
-      top: 45%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 2;
-    }
-    #birthday-section {
-      display: none;
-      padding-top: 50px;
-      z-index: 2;
+    .content {
       position: relative;
-    }
-
-    .birthday-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
-
-    .side-pic {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      border: 5px solid white;
-      box-shadow: 0 0 25px #ff69b4;
-      object-fit: cover;
-    }
-
-    .birthday-text {
+      z-index: 2;
       display: flex;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
+      height: 100vh;
+      padding: 0 10px;
+      box-sizing: border-box;
     }
-
-    h1.starry-text {
-      font-size: 60px;
-      font-family: 'Great Vibes', cursive;
-      animation: fadeIn 2s ease forwards;
-      opacity: 0;
+    .title {
+      font-size: 3em;
+      color: #ffccff;
+      text-shadow: 0 0 20px #ff99cc;
+      animation: fadeIn 2s ease-in-out forwards;
+      margin: 0;
     }
-
-    h1.starry-text:nth-child(1) { animation-delay: 0.5s; }
-    h1.starry-text:nth-child(2) { animation-delay: 1.5s; }
-    h1.starry-text:nth-child(3) { animation-delay: 2.5s; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    #star-name {
-      font-size: 32px;
-      margin-top: 20px;
-      animation: twinkle 4s infinite;
-      font-family: 'Great Vibes', cursive;
-    }
-
-    #enfp-infp {
-      font-size: 24px;
-      margin-top: 10px;
-      background: linear-gradient(45deg, #ff69b4, #ffd700, #87cefa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: glow 3s infinite alternate;
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.8; }
-      50% { opacity: 1; text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4; }
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #ff69b4; }
-      to { text-shadow: 0 0 20px #ffd700; }
-    }
-
-    .cake {
-      width: 180px;
-      margin-top: 20px;
-      margin-bottom: 30px;
-      cursor: pointer;
-      border-radius: 20px;
-      box-shadow: 0 0 20px #fff;
-      animation: glow 2s infinite alternate;
-    }
-
-    input, button {
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: none;
-    }
-
-    button {
-      background-color: #ff66cc;
+    .btn {
+      margin-top: 30px;
+      padding: 15px 30px;
+      font-size: 1.2em;
       color: white;
+      background: #ff69b4;
+      border: none;
+      border-radius: 10px;
       cursor: pointer;
+      box-shadow: 0 0 20px pink;
+      transition: transform 0.2s;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .constellation-label {
+      position: absolute;
+      color: #87cefa;
+      font-size: 14px;
+      font-weight: bold;
+      text-shadow: 0 0 5px #fff;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .personality-tag {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #f7b7ff;
+      font-size: 1.2em;
+      z-index: 2;
+      text-shadow: 0 0 10px #fff;
     }
   </style>
 </head>
 <body>
   <canvas id="stars"></canvas>
-  <div id="moon"></div>
 
-  <div id="password-section">
-    <input type="password" id="password" placeholder="Enter secret password" />
-    <button onclick="checkPassword()">Enter</button>
+  <!-- Constellation Labels -->
+  <div class="constellation-label" style="top: 20%; left: 10%;">Orion</div>
+  <div class="constellation-label" style="top: 35%; left: 75%;">Pisces</div>
+  <div class="constellation-label" style="top: 60%; left: 15%;">Scorpio</div>
+
+  <div class="content">
+    <h1 class="title">Happy Birthday My Love ❤️</h1>
+    <button class="btn" onclick="location.href='gallery.html'">Click to Begin</button>
   </div>
 
-  <div id="birthday-section">
-    <div class="birthday-wrapper">
-      <img src="assets/gf1.jpg" class="side-pic" alt="Shivakshi 1" />
-      <div class="birthday-text">
-        <h1 class="starry-text">Happy</h1>
-        <h1 class="starry-text">Birthday</h1>
-        <h1 class="starry-text">My Love</h1>
-      </div>
-      <img src="assets/gf2.jpg" class="side-pic" alt="Shivakshi 2" />
-    </div>
+  <div class="personality-tag">ENFP 💘 INFP</div>
 
-    <div id="star-name">Naman ❤️ Shivakshi</div>
-    <div id="enfp-infp">ENFP 💘 INFP</div>
-    <img src="assets/cake.jpg" class="cake" onclick="goToGallery()" />
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
-    // Star background
+    // Star animation
     const canvas = document.getElementById("stars");
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
@@ -178,7 +111,6 @@
         alpha: Math.random()
       });
     }
-
     function drawStars() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (let star of stars) {
@@ -189,26 +121,7 @@
       }
       requestAnimationFrame(drawStars);
     }
-
     drawStars();
-
-    function checkPassword() {
-      const pass = document.getElementById("password").value;
-      if (pass === "yourSecret123") {
-        document.getElementById("password-section").style.display = "none";
-        document.getElementById("birthday-section").style.display = "block";
-        confetti({ particleCount: 250, spread: 100, emojis: ['❤️','😍','🌟'] });
-      } else {
-        alert("Incorrect password");
-      }
-    }
-
-    function goToGallery() {
-      confetti({ particleCount: 200, spread: 100, emojis: ['❤️','🌟'] });
-      setTimeout(() => {
-        window.location.href = "gallery.html";
-      }, 1500);
-    }
   </script>
 </body>
 </html>
