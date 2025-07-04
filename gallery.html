@@ -1,88 +1,129 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Memories</title>
-  <meta name="robots" content="noindex, nofollow" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery - Shivakshi</title>
   <style>
     body {
       margin: 0;
-      background: #fff0f5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      font-family: 'Comic Sans MS', cursive;
-    }
-
-    #slideshow {
-      width: 90vw;
-      height: 90vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
+      background: black;
       overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      text-align: center;
     }
-
-    #slideshow img {
-      max-width: 100%;
-      max-height: 100%;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-      position: absolute;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-    }
-
-    #slideshow img.active {
-      opacity: 1;
-    }
-
-    audio {
+    canvas {
       position: fixed;
-      bottom: 10px;
-      left: 10px;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+    }
+    #slideshow {
+      position: relative;
+      z-index: 2;
+      max-width: 80vw;
+      margin: 100px auto 0;
+    }
+    .slide {
+      display: none;
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 0 30px #ff69b4;
+    }
+    .active {
+      display: block;
+      animation: fade 2s ease-in-out;
+    }
+    @keyframes fade {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    #message {
+      position: relative;
+      margin-top: 40px;
+      font-size: 24px;
+      color: #fff;
+      padding: 20px;
+      background: rgba(255, 182, 193, 0.2);
+      border: 2px solid #ff69b4;
+      border-radius: 16px;
+      box-shadow: 0 0 30px pink;
+      max-width: 90vw;
+      margin-left: auto;
+      margin-right: auto;
+      z-index: 2;
     }
   </style>
-
-  <script>
-    const pass = prompt("Enter the secret password:");
-    if (pass !== "yourSecret123") {
-      document.body.innerHTML = "<h2>Access Denied</h2>";
-    }
-  </script>
 </head>
 <body>
+  <canvas id="stars"></canvas>
 
   <div id="slideshow"></div>
 
-  <audio autoplay loop controls>
+  <audio id="bg-music" autoplay loop>
     <source src="assets/music.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
   </audio>
 
-  <script>
-    const totalImages = 45; // Total number of images
-    const slideshow = document.getElementById('slideshow');
-    const imageElements = [];
+  <div id="message">
+    <strong>Meri Shivu Chaan</strong>, meri pagli I love you to the moon and beyond!<br>
+    <strong>DREAMERS</strong> is the name that always reminds me that I have someone who loves me, and she is my everything - My Bestie, My Partner, My Universe 💖
+  </div>
 
-    for (let i = 1; i <= totalImages; i++) {
-      const img = document.createElement('img');
-      img.src = `assets/photo${i}.jpg`;
-      if (i === 1) img.classList.add('active');
-      slideshow.appendChild(img);
-      imageElements.push(img);
+  <script>
+    // Star animation
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const stars = [];
+    for (let i = 0; i < 150; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.5,
+        alpha: Math.random()
+      });
+    }
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let star of stars) {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+        ctx.fill();
+      }
+      requestAnimationFrame(drawStars);
+    }
+    drawStars();
+
+    // Slideshow
+    const images = [];
+    for (let i = 1; i <= 45; i++) {
+      images.push(`assets/photo${i}.jpg`);
     }
 
-    let current = 0;
-    setInterval(() => {
-      imageElements[current].classList.remove('active');
-      current = (current + 1) % totalImages;
-      imageElements[current].classList.add('active');
-    }, 2500); // Change every 2.5 seconds
-  </script>
+    const slideshow = document.getElementById("slideshow");
+    images.forEach((src, index) => {
+      const img = document.createElement("img");
+      img.src = src;
+      img.classList.add("slide");
+      if (index === 0) img.classList.add("active");
+      slideshow.appendChild(img);
+    });
 
+    let current = 0;
+    const slides = document.querySelectorAll(".slide");
+    setInterval(() => {
+      slides[current].classList.remove("active");
+      current = (current + 1) % slides.length;
+      slides[current].classList.add("active");
+    }, 2500);
+
+    // Prevent controls showing for autoplay audio
+    const audio = document.getElementById("bg-music");
+    audio.setAttribute("controls", false);
+  </script>
 </body>
 </html>
